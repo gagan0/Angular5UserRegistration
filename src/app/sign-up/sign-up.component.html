@@ -8,12 +8,14 @@
             <form class="col s12 white" #userRegistrationForm="ngForm">
                 <div class="row">
                     <div class="input-field col s6">
-                        <input type="text" name="txtUserName" #UserName="ngModel" [(ngModel)]="user.UserName" required>
+                        <input class="validate" type="text" name="UserName" #UserName="ngModel" [(ngModel)]="user.UserName" required>
                         <label>UserName</label>
+                        <span class="helper-text" data-error="Required field!"></span>
                     </div>
                     <div class="input-field col s6">
-                        <input type="text" name="txtPassword" #Password="ngModel" [(ngModel)]="user.Password" required>
+                        <input class="validate" type="text" name="Password" #Password="ngModel" [(ngModel)]="user.Password" required minlength="3">
                         <label>Password</label>
+                        <span class="helper-text" [attr.data-error]="Password.errors!=null?(Password.errors.required?'Required Field!':'3 chars needed'):'asdfASDF'"></span>
                     </div>
                 </div>
                 <div class="row">

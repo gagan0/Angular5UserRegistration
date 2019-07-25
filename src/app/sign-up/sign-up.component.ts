@@ -16,10 +16,11 @@ export class SignUpComponent implements OnInit
 
 	ngOnInit()
 	{
+		this.resetUserData();
 		this.resetForm();
 	}
 
-	resetForm(form?: NgForm)
+	resetUserData()
 	{
 		this.user =
 		{
@@ -28,8 +29,11 @@ export class SignUpComponent implements OnInit
 			Email: "",
 			FirstName: "",
 			LastName: ""
-		}
+		};
+	}
 
+	resetForm(form?: NgForm)
+	{
 		if(form == null)
 		{
 			return;
