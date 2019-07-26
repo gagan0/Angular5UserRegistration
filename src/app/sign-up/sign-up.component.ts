@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { User } from '../shared/user.model';
 import { NgForm } from '@angular/forms';
 import { from } from 'rxjs';
+import { UserService } from '../shared/user.service';
+import { ToastrService } from "ngx-toastr";
 
 @Component({
 	selector: 'app-sign-up',
@@ -13,7 +15,7 @@ export class SignUpComponent implements OnInit
 	user: User;
 	emailPattern: String = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$";
 	
-	constructor() { }
+	constructor(private userService: UserService, private toastrService: ToastrService) { }
 
 	ngOnInit()
 	{
@@ -41,5 +43,23 @@ export class SignUpComponent implements OnInit
 		}
 		
 		form.reset();
+	}
+
+	OnSubmit(userRegistrationForm: NgForm)
+	{
+		this.userService.registerUser(userRegistrationForm.value);
+
+						// .subscribe((data: any) => 
+						// {
+						// 	if(data.success == true)
+						// 	{
+						// 		this.resetForm(userRegistrationForm);
+								this.toastrService.success("Registration successful");
+						// 	}
+						//	else
+						//	{
+						// 		this.toastrService.error(data.Errors[0]);
+						//	}
+						// })
 	}
 }
