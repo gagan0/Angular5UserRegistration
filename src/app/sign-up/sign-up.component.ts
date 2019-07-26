@@ -11,7 +11,8 @@ import { from } from 'rxjs';
 export class SignUpComponent implements OnInit
 {
 	user: User;
-
+	emailPattern: String = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$";
+	
 	constructor() { }
 
 	ngOnInit()
