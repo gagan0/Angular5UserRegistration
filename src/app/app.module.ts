@@ -4,16 +4,24 @@ import { FormsModule } from "@angular/forms";
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { SignUpComponent } from './sign-up/sign-up.component';
+import { SignUpComponent } from './user/sign-up/sign-up.component';
 import { UserService } from './shared/user.service';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { ToastrModule } from "ngx-toastr";
+import { UserComponent } from './user/user.component';
+import { SignInComponent } from './user/sign-in/sign-in.component';
+import { HomeComponent } from './home/home.component';
+import { RouterModule } from '@angular/router';
+import { appRoutes } from './routes';
 
 @NgModule({
 	declarations: [
 		AppComponent,
-		SignUpComponent
+		SignUpComponent,
+		UserComponent,
+		SignInComponent,
+		HomeComponent
 	],
 	imports: [
 		BrowserModule,
@@ -21,7 +29,8 @@ import { ToastrModule } from "ngx-toastr";
 		FormsModule,
 		HttpClientModule,
 		ToastrModule.forRoot(),
-		BrowserAnimationsModule
+		BrowserAnimationsModule,
+		RouterModule.forRoot(appRoutes)
 	],
 	providers: [UserService],
 	bootstrap: [AppComponent]
