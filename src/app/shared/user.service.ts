@@ -1,9 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { Response } from "@angular/http";
-import { map } from "rxjs/operators";
-
-//import "rxjs/add/operator/map";
 
 import { User } from './user.model';
 
@@ -18,27 +14,33 @@ export class UserService
 
 	registerUser(user: User)
 	{
-		const body:
-			User =
+		const body:	User =
 			{
 				UserName: user.UserName,
 				Password: user.Password,
 				Email: user.Email,
 				FirstName: user.FirstName,
 				LastName: user.LastName
-			}
+			};
 		
-		console.table(body);
-		return this.http.post(this.rootUrl + "api/Accounts/Register", body);
+		var requestHeader = new HttpHeaders
+		(
+			{
+				"No-Auth": "True"
+			}
+		);
+
+		return this.http.post(this.rootUrl + "api/Accounts/Register", body, {headers: requestHeader});
 	}
 
-	userAuthentication(userName, password)
+	userAuthentication(userName: string, password: string)
 	{
 		var data = "username=" + userName + "&" + "password=" + password + "&" + "grant_type=password";
 		var requestHeader = new HttpHeaders
 		(
 			{
-				"Content-Type": "application/x-www-form-urlencoded"
+				"Content-Type": "application/x-www-form-urlencoded",
+				"No-Auth": "True"
 			}
 		)
 		
@@ -47,11 +49,6 @@ export class UserService
 
 	getUserClaims()
 	{
-		return this.http.get(this.rootUrl + "api/Accounts/GetUserClaims", {headers: new HttpHeaders
-		(
-			{
-				"Authorization": "bearer " + localStorage.getItem("userToken")
-			}
-		)});
+		return this.http.get(this.rootUrl + "api/Accounts/GetUserClaims");
 	}
 }
