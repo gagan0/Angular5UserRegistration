@@ -43,3 +43,9 @@ div.error-message i
 {
 	background-color: #fff !important;
 }
+
+span
+{
+	font-family: Calibri, 'Trebuchet MS', sans-serif;
+	color: black;
+}

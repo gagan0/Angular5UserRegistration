@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Response } from "@angular/http";
-import { Observable } from "rxjs";
+import { map } from "rxjs/operators";
 
 //import "rxjs/add/operator/map";
+
 import { User } from './user.model';
 
 @Injectable({
@@ -12,7 +13,7 @@ import { User } from './user.model';
 
 export class UserService
 {
-	readonly rootUrl = "http://localhost:2020";
+	readonly rootUrl = "http://localhost/UserRegistrationWebAPI/";
 	constructor(private http: HttpClient) { }
 
 	registerUser(user: User)
@@ -28,6 +29,29 @@ export class UserService
 			}
 		
 		console.table(body);
-		// return this.http.post(this.rootUrl + "api/User/Register", body);
+		return this.http.post(this.rootUrl + "api/Accounts/Register", body);
+	}
+
+	userAuthentication(userName, password)
+	{
+		var data = "username=" + userName + "&" + "password=" + password + "&" + "grant_type=password";
+		var requestHeader = new HttpHeaders
+		(
+			{
+				"Content-Type": "application/x-www-form-urlencoded"
+			}
+		)
+		
+		return this.http.post(this.rootUrl + "token", data, {headers: requestHeader});
+	}	
+
+	getUserClaims()
+	{
+		return this.http.get(this.rootUrl + "api/Accounts/GetUserClaims", {headers: new HttpHeaders
+		(
+			{
+				"Authorization": "bearer " + localStorage.getItem("userToken")
+			}
+		)});
 	}
 }
